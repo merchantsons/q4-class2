@@ -1,5 +1,8 @@
 # 2nd ASSIGNMENTS - FOR CLASS-2<br>
 
+Live App On Vercel <br>
+# https://q4-class2.vercel.app/<br>
+
 ꧁༺ 02/06/2025 ༻꧂ 
 
 # 🅀🅄🄰🅃🄴🅁 4 <br>
