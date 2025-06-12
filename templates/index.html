@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English to Urdu Translator</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --text-color: #fff;
+            --input-bg: rgba(0, 0, 0, 0.5);
+            --result-bg: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .logo1 {
+            display: block;
+            margin: 0 auto 1.5rem;
+            max-width: 120px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-left: -2.5rem;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+
+        textarea {
+            width: 100%;
+            height: clamp(100px, 30vh, 200px);
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        #result {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            min-height: clamp(80px, 20vh, 150px);
+            background: var(--result-bg);
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            overflow-wrap: break-word;
+        }
+
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-color), 0 0 20px var(--primary-color);
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color), 0 0 40px var(--secondary-color);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            textarea, #result {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 150px;
+            height: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .bottom {
+            margin-top: 15px;
+            padding-right: 10px;
+            max-width: 30px;
+            height: auto;
+        }
+
+        .tagline {
+            margin-top: -2rem;
+            font-size: .9rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./logo.png" alt="Logo" class="logo1">
+        <h1>✨ Futuristic Urdu Translator</h1>
+        <p class="tagline">Powered by Gemini AI — Translate English to Urdu seamlessly</p>
+        <form id="translateForm">
+            <textarea id="text" name="text" placeholder="Enter English text here..." required></textarea>
+            <button type="submit">Translate</button>
+        </form>
+        <div id="result"></div>
+        <footer style="margin-top: -1rem; font-size: .7rem; display: flex; justify-content: center; align-items: center; gap: 10px;">
+            <img src="./logo.png" alt="Logo" class="bottom">
+            <spa style="margin-top: 1rem;">© All rights reserved Merchantsons - Design for GIAIC Roll - 00037391</span>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('translateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = document.getElementById('text').value;
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `text=${encodeURIComponent(text)}`,
+            });
+            const data = await response.json();
+            document.getElementById('result').textContent = data.translation;
+        });
+    </script>
+</body>
+</html> 
